@@ -4,13 +4,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "Inventory";
-$model = filter_input(INPUT_POST,'model');
-$description = filter_input(INPUT_POST,'description');
-$pcn = filter_input(INPUT_POST,'pcn');
-$serial = filter_input(INPUT_POST,'serial');
-$area = filter_input(INPUT_POST,'area');
-$calibration = filter_input(INPUT_POST,'calibration');
-$notes = filter_input(INPUT_POST,'notes');
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -18,14 +12,35 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "DELETE FROM ESDInventory";
-if($conn->query($sql)){
-	echo "New Record Created";
+$sql = $conn->prepare("DELETE FROM ESDInventory WHERE pcn =? OR serial = ?");
+$sql->bind_param("ss",$pcn,$serial);
+$pcn = filter_input(INPUT_POST,'pcn');
+$serial = filter_input(INPUT_POST,'serial');
+
+if(empty($pcn)&&empty($serial)){
+	header("Location: managementPage.php?delete=*FAILED to Delete Item. Enter a PCN or Serial Number*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
+elseif(empty($pcn)){
+	$pcn = "TEMP NAME TO PREVENT SQL FROM MATCHING EMPTY STRING TO EMPTY STRING IN DATABASE";
+}
+elseif(empty($serial)){
+	$serial = "TEMP NAME TO PREVENT...";
+}
+$sql->execute();
+if($sql->affected_rows<=0){
+	header("Location: managementPage.php?delete=*FAILED to Delete Item. Enter a PCN or Serial Number*");
+	$stmt->close();
+	$conn->close();
+	exit();
 }
 else{
-	echo "error";
+	header("Location: managementPage.php?delete=*SUCCESSFULLY Deleted Item*");
+	$stmt->close();
+	$conn->close();
+	exit();
 }
 
-header("Location: index.php");
-$conn->close();
 ?>

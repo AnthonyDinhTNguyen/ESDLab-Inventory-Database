@@ -22,8 +22,14 @@ $serial = filter_input(INPUT_POST,'serial');
 $area = filter_input(INPUT_POST,'area');
 $calibration = filter_input(INPUT_POST,'calibration');
 
+if(empty($pcn)&&empty($serial)){
+	header("Location: managementPage.php?insert=*FAILED to Insert Item. Please Enter a Serial Number or PCN*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
 $stmt->execute();
 $stmt->close();
-header("Location: index.php");
+header("Location: managementPage.php?insert=*SUCCESSFULLY Inserted Item*");
 $conn->close();
 ?>

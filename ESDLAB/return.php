@@ -21,24 +21,34 @@ $returnDate = filter_input(INPUT_POST,'returnDate');
 
 $continue = true;
 if(empty($returnDate)){
-	echo "Please Enter The Return Date";
-	$continue = false;
+	header("Location: index.php?return=*FAILED to return item. Please Enter The Return Date*");
+	$stmt->close();
+	$conn->close();
+	exit();
 }
-
-if($continue){
-	$stmt->execute();
-	if($stmt->affected_rows>=1){
-		echo "Successfully Returned Item";
-	}
-	else{
-		echo "Failed To Return Item. Please try entering the PCN or Serial Number again.";
-	}
+elseif(empty($pcn)&&empty($serial)){
+	header("Location: index.php?return=*FAILED to Return Item. Enter either a PCN or Serial Number*");
+	$stmt->close();
+	$conn->close();
+	exit();
 }
-$stmt->close();
-$conn->close();
+elseif(empty($pcn)){
+	$pcn = "TEMP NAME TO PREVENT SQL FROM MATCHING EMPTY STRING TO EMPTY STRING IN DATABASE";
+}
+elseif(empty($serial)){
+	$serial = "TEMP NAME TO PREVENT...";
+}
+$stmt->execute();
+if($stmt->affected_rows>=1){
+	header("Location: index.php?return=*SUCCESS. Item Returned*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
+else{
+	header("Location: index.php?return=*FAILED to Return Item. Please Check the Serial or PCN again*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
 ?>
-<html>
-<body>
-<a href="index.php">Click to return home</a>
-</body>
-</html>

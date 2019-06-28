@@ -25,6 +25,18 @@ $description = filter_input(INPUT_POST,'description');
 $calibration = filter_input(INPUT_POST,'calibration');
 $returnDate = filter_input(INPUT_POST,'returnDate');
 
+if(empty($pcn)&&empty($serial)){
+	header("Location: managementPage.php?update=*FAILED to Update Item. Enter PCN or Serial Number*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
+elseif(empty($pcn)){
+	$pcn = "TEMP NAME TO PREVENT SQL FROM MATCHING EMPTY STRING TO EMPTY STRING IN DATABASE";
+}
+elseif(empty($serial)){
+	$serial = "TEMP NAME TO PREVENT...";
+}
 $sql = "SELECT model, description, calibration, name, checkoutDate, area, returnDate FROM ESDInventory WHERE serial = '$serial' OR pcn = '$pcn'";
 $result = $conn->query($sql);
 if ($result->num_rows>0) {
@@ -52,12 +64,22 @@ if ($result->num_rows>0) {
 	}
 }
 $stmt->execute();
-header("Location: managementPage.php");
-$stmt->close();
-$conn->close();
+if($stmt->affected_rows>=1){
+	header("Location: managementPage.php?update=*SUCCESS. Item Updated*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
+else{
+	header("Location: managementPage.php?update=*FAILED to Update Item. Serial Number/PCN are incorrect, or are not in the database*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
 ?>
 <html>
 <body>
-<a href="index.php">Click to return home</a>
+<a href="managementPage.php">Click to return to database management page
+</a>
 </body>
 </html>

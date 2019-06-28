@@ -22,30 +22,46 @@ $serial = filter_input(INPUT_POST,'serial');
 $area = filter_input(INPUT_POST,'area');
 $continue = true;
 if(empty($name)){
-	$continue = false;
-	echo "Please Enter Your Name<br>";
+	header("Location: index.php?checkout=*FAILED to Checkout Item. Please Enter Your Name*");
+	$stmt->close();
+	$conn->close();
+	exit();
 }
-if(empty($checkoutDate)){
-	$continue = false;
-	echo "Please Enter Today's Date<br>";
+elseif(empty($checkoutDate)){
+	header("Location: index.php?checkout=*FAILED to Checkout Item. Please Enter The Checkout Date*");
+	$stmt->close();
+	$conn->close();
+	exit();
 }
-if (empty($area)){
-	$continue = false;
-	echo "Please Enter Where You Are Taking the Item<br>";
-	}
-if(empty($pcn)&&empty($serial)){
-	$continue = false;
-	echo "Please Enter Either a PCN or Serial Number<br>";
+elseif (empty($area)){
+	header("Location: index.php?checkout=*FAILED to Checkout Item. Please Specify Where The Item Is Being Taken*");
+	$stmt->close();
+	$conn->close();
+	exit();	
 }
-if($continue){
+elseif(empty($pcn)&&empty($serial)){
+	header("Location: index.php?checkout=*FAILED to Checkout Item. The Serial Number or PCN is incorrect or not in the database*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
+elseif(empty($pcn)){
+	$pcn = "TEMP NAME TO PREVENT SQL FROM MATCHING EMPTY STRING TO EMPTY STRING IN DATABASE";
+}
+elseif(empty($serial)){
+	$serial = "TEMP NAME TO PREVENT...";
+}
 $stmt->execute();
-header("Location: index.php");
+if($stmt->affected_rows>=1){
+	header("Location: index.php?checkout=*SUCCESS. Item Checked Out*");
+	$stmt->close();
+	$conn->close();
+	exit();
 }
-$stmt->close();
-$conn->close();
+else{
+	header("Location: index.php?checkout=*FAILED to Checkout Item. Please Check the Serial or PCN again*");
+	$stmt->close();
+	$conn->close();
+	exit();
+}
 ?>
-<html>
-<body>
-<a href="index.php">Click to return home</a>
-</body>
-</html>

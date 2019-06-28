@@ -44,18 +44,17 @@
 			Today's Date:<input type = "date" name = "returnDate"><br>
 			<input type="submit" value="Return">
 		</form>
-		<!--<form action="insert.php" method="post" id = "newItemForm">
-			Manufacture/Model: <input type="text" name="model"><br>
-			Item Description:  <input type="text" name="description"><br>
-			PCN#: <input type="text" name="pcn"><br>
-			Serial#: <input type="text" name="serial"><br>
-			Location: <input type="text" name="area"><br>
-			Calibration Due Date: <input type="date" name="calibration"><br>
-			<input type="submit" value="Insert">
-		</form>
-		<form action="delete.php" method="post" id="deleteForm">
-			<input type = "submit" value = "DELETE AN ENTRY">
-		</form>-->
+		<?php 
+			if(isset($_GET['checkout'])){
+				echo $_GET['checkout'];
+				echo '<script type="text/javascript">','showCheckout();','</script>';
+			}
+			if(isset($_GET['return'])){
+				echo $_GET['return'];
+				echo '<script type="text/javascript">','showReturn();','</script>';
+			}
+		?>
+		
 		<?php include 'backend.php';?>
 	</body>
 </html>

@@ -27,6 +27,7 @@
 				<button onclick="showInsert()">Create New Entry</button>
 				<button onclick="showUpdate()">Update Entry</button>
 				<button onclick="showDelete()">Delete Item</button>
+				<button onclick="showBackup()">Backup Inventory</button>
 			</div>
 		</div>
 		<form action="insert.php" method="post" id = "newItemForm">
@@ -55,8 +56,29 @@
 			<input type="submit" value="Update">
 		</form>
 		<form action="delete.php" method="post" id="deleteForm">
-			<input type = "submit" value = "DELETE AN ENTRY">
+			<h1>Delete Item Based on PCN or Serial Number</h1>
+			PCN#: <input type="text" name="pcn"><br>
+			Serial#: <input type="text" name="serial"><br>
+			<input type = "submit" value = "Delete Entry">
 		</form>
+		<form action="backup.php" method="post" id="backupForm">
+			<h1>Backup Entire Inventory</h1>
+			<input type = "submit" value = "Backup Inventory">
+		</form>
+		<?php
+			if(isset($_GET['insert'])){
+				echo $_GET['insert'];
+				echo '<script type="text/javascript">','showInsert();','</script>';
+			}
+			if(isset($_GET['update'])){
+				echo $_GET['update'];
+				echo '<script type="text/javascript">','showUpdate();','</script>';
+			}			
+			if(isset($_GET['delete'])){
+				echo $_GET['delete'];
+				echo '<script type="text/javascript">','showDelete();','</script>';
+			}			
+		?>
 		<?php include 'backend.php';?>
 	</body>
 </html>

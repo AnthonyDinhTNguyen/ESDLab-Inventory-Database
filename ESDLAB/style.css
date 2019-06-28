@@ -118,11 +118,18 @@ table{
 	display:none;
 	padding: 1%;
 }
+#updateForm h2{
+	margin-top:1%;
+}
 #checkoutForm{
 	display:block;
 	padding:1%;
 }
 #returnForm{
+	display:none;
+	padding:1%;
+}
+#backupForm{
 	display:none;
 	padding:1%;
 }
