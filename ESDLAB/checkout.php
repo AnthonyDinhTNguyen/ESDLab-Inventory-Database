@@ -17,8 +17,8 @@ $stmt->bind_param("sssss", $name, $checkoutDate, $area, $serial, $pcn);
 
 $name = filter_input(INPUT_POST,'name');
 $checkoutDate = filter_input(INPUT_POST,'checkoutDate');
-$pcn = filter_input(INPUT_POST,'pcn');
-$serial = filter_input(INPUT_POST,'serial');
+$pcn = trim(filter_input(INPUT_POST,'pcn'));
+$serial = trim(filter_input(INPUT_POST,'serial'));
 $area = filter_input(INPUT_POST,'area');
 $continue = true;
 if(empty($name)){

@@ -14,8 +14,8 @@ if ($conn->connect_error) {
 
 $sql = $conn->prepare("DELETE FROM ESDInventory WHERE pcn =? OR serial = ?");
 $sql->bind_param("ss",$pcn,$serial);
-$pcn = filter_input(INPUT_POST,'pcn');
-$serial = filter_input(INPUT_POST,'serial');
+$pcn = trim(filter_input(INPUT_POST,'pcn'));
+$serial = trim(filter_input(INPUT_POST,'serial'));
 
 if(empty($pcn)&&empty($serial)){
 	header("Location: managementPage.php?delete=*FAILED to Delete Item. Enter a PCN or Serial Number*");

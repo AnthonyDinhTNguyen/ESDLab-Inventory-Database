@@ -15,8 +15,8 @@ if ($conn->connect_error) {
 $stmt = $conn->prepare("UPDATE ESDInventory SET area = 'ESD LAB', returnDate = ? WHERE serial = ? OR pcn = ?");
 $stmt->bind_param("sss",$returnDate, $serial, $pcn);
 
-$pcn = filter_input(INPUT_POST,'pcn');
-$serial = filter_input(INPUT_POST,'serial');
+$pcn = trim(filter_input(INPUT_POST,'pcn'));
+$serial = trim(filter_input(INPUT_POST,'serial'));
 $returnDate = filter_input(INPUT_POST,'returnDate');
 
 $continue = true;

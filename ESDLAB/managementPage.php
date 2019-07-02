@@ -71,7 +71,9 @@
 			<h1>Restore Inventory with Backup CSV</h1>
 			<input type = "file" name = "file" id="file"><br>
 			<input type = "submit" value = "Restore" name = "submit">
-		</form>		
+		</form>
+		Filter Input:<input type="text" id="filterInputStr" oninput="filterOnInput()"><br>
+		<button value = "showall" onclick = "showAll()">ShowAll</button>
 		<?php
 			if(isset($_GET['insert'])){
 				echo $_GET['insert'];
@@ -86,6 +88,7 @@
 				echo '<script type="text/javascript">','showDelete();','</script>';
 			}			
 		?>
+		
 		<?php include 'backend.php';?>
 	</body>
 </html>

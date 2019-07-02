@@ -115,4 +115,44 @@ function sortTable(n) {
     }
   }
 }
-
+function tempAlert(msg,duration)
+{
+ var el = document.createElement("div");
+ el.setAttribute("style","position:fixed;top:40%;left:35%;background-color:white; color: red; height 4%");
+ el.innerHTML = msg;
+ setTimeout(function(){
+  el.parentNode.removeChild(el);
+ },duration);
+ document.body.appendChild(el);
+}
+function copyOnClick(n){
+    var range = document.createRange();
+    range.selectNode(document.getElementById("pcnID"+n));
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect	
+	tempAlert("copied "+document.getElementById("pcnID"+n).textContent, 800);
+}
+function filterOnInput(){
+	var str = document.getElementById("filterInputStr").value;
+	var tab = document.getElementById("myTable");
+	var rowOK = false;
+	for(i = 0; i <tab.rows.length; i++){
+		for(j = 0; j<tab.rows[i].cells.length;j++){
+			
+			if(tab.rows[i].cells[j].textContent.includes(str))
+				rowOK = true;
+		}
+		if(rowOK==false)
+			tab.rows[i].style.display="none";
+		rowOK=false;
+	}
+}
+function showAll(){
+	var tab = document.getElementById("myTable");
+	document.getElementById("filterInputStr").value = "";
+	for(i = 0; i <tab.rows.length; i++){
+		tab.rows[i].style.display="table-row";
+	}
+}
