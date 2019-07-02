@@ -15,7 +15,7 @@ $sql = "SELECT model, description, pcn, serial, area, calibration, name, checkou
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<table><tr><th>Manufacture&Model</th><th>Description</th><th>PCN</th><th>Serial</th><th>Calibration Due Date</th><th>Location of Item</th><th>Last Checked Out By</th><th>Checked Out On</th><th>Returned On</th></tr>";
+    echo "<table id = 'myTable'><tr><th onclick = 'sortTable(0)'>Manufacture&Model</th><th onclick = 'sortTable(1)'>Description</th><th onclick = 'sortTable(2)'>PCN</th><th onclick = 'sortTable(3)'>Serial#</th><th onclick = 'sortTable(4)'>Calibration Due Date</th><th onclick = 'sortTable(5)'>Location of Item</th><th onclick = 'sortTable(6)'>Last Checked Out By</th><th onclick = 'sortTable(7)'>Checked Out On</th><th onclick = 'sortTable(8)'>Returned On</th></tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "<tr><td>".$row["model"]."</td><td>".$row["description"]."</td><td>".$row["pcn"]."</td><td>".$row["serial"]."</td><td>".$row["calibration"]."</td><td>".$row["area"]."</td><td>".$row["name"]."</td><td>".$row["checkoutDate"]."</td><td>".$row["returnDate"]."</td></tr>";

@@ -28,6 +28,7 @@
 				<button onclick="showUpdate()">Update Entry</button>
 				<button onclick="showDelete()">Delete Item</button>
 				<button onclick="showBackup()">Backup Inventory</button>
+				<button onclick="showRestore()">Restore Inventory</button>
 			</div>
 		</div>
 		<form action="insert.php" method="post" id = "newItemForm">
@@ -63,8 +64,14 @@
 		</form>
 		<form action="backup.php" method="post" id="backupForm">
 			<h1>Backup Entire Inventory</h1>
+			Backup File Name: <input type="text" name="filename"><br>
 			<input type = "submit" value = "Backup Inventory">
 		</form>
+		<form action="restore.php" method="post" id="restoreForm" enctype="multipart/form-data">
+			<h1>Restore Inventory with Backup CSV</h1>
+			<input type = "file" name = "file" id="file"><br>
+			<input type = "submit" value = "Restore" name = "submit">
+		</form>		
 		<?php
 			if(isset($_GET['insert'])){
 				echo $_GET['insert'];

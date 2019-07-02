@@ -5,13 +5,15 @@
 html, body{
 		height:100%;
 		scroll-behavior: smooth;
+		
 }
 header{
 	background: #353637;
 	color: #ffffff;
 	padding-top: 30px;
 	min-height: 10%;
-	border-bottom #32a0c2 3px solid;
+	border-bottom: #353637 3px solid;
+	
 
 }
 header a{
@@ -54,11 +56,22 @@ header a:hover{
 }
 table, th, td {
   border: 1px solid black;
+  border-collapse: collapse;
   //margin: 1%;
+  font-size: 16pt;
 }
-table{
-	//position: relative;
-	//left: 35%;
+
+th{
+	height:50px;
+	text-align: center;
+	
+}
+td{
+	height: 50%;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+#myTable{
+	width:100%;
 }
 /* Dropdown Button */
 .dropbtn {
@@ -99,7 +112,6 @@ table{
   display: block;
   width: 100%;
 }
-
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd}
 
@@ -130,6 +142,10 @@ table{
 	padding:1%;
 }
 #backupForm{
+	display:none;
+	padding:1%;
+}
+#restoreForm{
 	display:none;
 	padding:1%;
 }
