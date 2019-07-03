@@ -134,14 +134,23 @@ function copyOnClick(n){
     window.getSelection().removeAllRanges();// to deselect	
 	tempAlert("copied "+document.getElementById("pcnID"+n).textContent, 800);
 }
+
+function showAll(){
+	var tab = document.getElementById("myTable");
+	for(i = 0; i <tab.rows.length; i++){
+		tab.rows[i].style.display="table-row";
+	}
+}
+
 function filterOnInput(){
+	showAll();
 	var str = document.getElementById("filterInputStr").value;
 	var tab = document.getElementById("myTable");
 	var rowOK = false;
 	for(i = 0; i <tab.rows.length; i++){
 		for(j = 0; j<tab.rows[i].cells.length;j++){
 			
-			if(tab.rows[i].cells[j].textContent.includes(str))
+			if(tab.rows[i].cells[j].textContent.toLowerCase().includes(str.toLowerCase()))
 				rowOK = true;
 		}
 		if(rowOK==false)
@@ -149,10 +158,4 @@ function filterOnInput(){
 		rowOK=false;
 	}
 }
-function showAll(){
-	var tab = document.getElementById("myTable");
-	document.getElementById("filterInputStr").value = "";
-	for(i = 0; i <tab.rows.length; i++){
-		tab.rows[i].style.display="table-row";
-	}
-}
+

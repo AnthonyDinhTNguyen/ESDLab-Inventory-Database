@@ -73,7 +73,6 @@
 			<input type = "submit" value = "Restore" name = "submit">
 		</form>
 		Filter Input:<input type="text" id="filterInputStr" oninput="filterOnInput()"><br>
-		<button value = "showall" onclick = "showAll()">ShowAll</button>
 		<?php
 			if(isset($_GET['insert'])){
 				echo $_GET['insert'];
